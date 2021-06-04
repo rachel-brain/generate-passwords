@@ -80,13 +80,13 @@ This homework is graded based on the following criteria:
 
 * Repository contains quality readme file with description, screenshot, and link to deployed application.
 
-## Review
+## URLs
 
-You are required to submit the following for review:
+* The URL of the deployed application:
 
-* The URL of the deployed application.
 
-* The URL of the GitHub repository, with a unique name and a readme describing the project.
+* The URL of the GitHub repository:
+
 
 - - -
 © 2021 Trilogy Education Services, LLC, a 2U, Inc. brand. Confidential and Proprietary. All Rights Reserved.
