@@ -1,91 +1,116 @@
-// WHEN I click the button to generate a password
-// THEN I am presented with a series of prompts for password criteria
-// WHEN prompted for password criteria
-// THEN I select which criteria to include in the password
+// Assignment code
+var generateBtn = document.querySelector("#generate");
 
-// WHEN prompted for character types to include in the password
-// THEN I choose lowercase, uppercase, numeric, and/or special characters
-// WHEN I answer each prompt
-// THEN my input should be validated and at least one character type should be selected
+// Strings of character options for user (& computer) to pick from
+var lowercaseOptions = "abcdefghijklmnopqrstuvwxyz";
+var uppercaseOptions = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+var numberOptions = "0123456789";
+var specialOptions = "!#$%&(*+,-./:;<=>?@[]^_`{|}~";
 
-// Choices for user to pick from
-var lowercase;
-var uppercase;
-var number;
-var special;
+var lowercaseChoice;
+var uppercaseChoice;
+var numberChoice;
+var specialChoice;
+var lengthChoice;
 
-// // Array of options for computer to pick from
-var lowercaseOptions = ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z"];
-var uppercaseOptions = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z"];
-var numberOptions = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9];
-var specialOptions = ["!", "#", "$", "%", "&", "(", ")", "*", "+", "-", "/", "<", ">", "=", "?", "~"];
+let chosenCharacters = "";
 
-var generatePassword = function () {
+function askUser() {
   // Ask user for their choices of criteria to use
-  var lowercaseChoice = window.prompt("Would you like to include lowercase letters? Choose y or n.");
-  var uppercaseChoice = window.prompt("Would you like to include uppercase letters? Choose y or n.");
-  var numberChoice = window.prompt("Would you like to include numbers? Choose y or n.");
-  var specialChoice = window.prompt("Would you like to include special characters? Choose y or n.");
+  lowercaseChoice = window.confirm("Would you like to include lowercase letters?");
+  uppercaseChoice = window.confirm("Would you like to include uppercase letters?");
+  numberChoice = window.confirm("Would you like to include numbers?");
+  specialChoice = window.confirm("Would you like to include special characters?");
+  // Ask user for their choice of length of password which must be at least 8 characters & no more than 128 characters
+  lengthChoice = window.prompt("Please choose a length of password between 8 & 128 characters.");
+}
 
+function generatePassword() {
   // If user pressed No to all options, alert them of the error
-  if (!lowercaseChoice || !uppercaseChoice || !numberChoice || !specialChoice) {
+  if (!lowercaseChoice && !uppercaseChoice && !numberChoice && !specialChoice) {
     window.alert("You must choose at least one type of character. Please start again.");
   }
 
-  // WHEN prompted for the length of the password
-  // THEN I choose a length of at least 8 characters and no more than 128 characters
-  var lengthChoice = window.prompt("Please choose a length of password between 8 & 128 characters.");
-
-  // If user pressed No to all options, alert them of the error
+  // If user chose a password length not between 8 & 128, alert them of the error
   if (lengthChoice < 8 || lengthChoice > 128) {
     window.alert("Your password length must be between 8 & 128 characters. Please start again.");
   }
 
-  // WHEN all prompts are answered
-  // THEN a password is generated that matches the selected criteria
-
-  var indexL = Math.floor(Math.random() * lowercaseOptions.length);
-  var indexU = Math.floor(Math.random() * uppercaseOptions.length);
-  var indexN = Math.floor(Math.random() * numberOptions.length);
-  var indexS = Math.floor(Math.random() * specialOptions.length);
-
-
-  // The password must contain at least one of each of the characters chosen by the user
-  if {
-    (lowercaseChoice = true) password must contain at least one lowercase character
-
-      &&
-      (uppercaseChoice = true) password must contain at least one uppercase character
-
-      &&
-      (numberChoice = true) password must contain at least one number
-
-      &&
-      (specialChoice = true) password must contain at least one special character
-
-    var computerPassword = lowercaseOptions[indexL] + uppercaseOptions[indexU] + numberOptions[indexN] + specialOptions[indexS];
-
+  // Compile the full selection of chosen characters
+  if (lowercaseChoice) {
+    // add lowercase characters to chosenCharacters, if chosen
+    var lowercaseOptionsSplit = lowercaseOptions.split(",");
+    chosenCharacters = chosenCharacters.concat(lowercaseOptionsSplit);
+  }
+  if (uppercaseChoice) {
+    // add uppercase characters to chosenCharacters, if chosen
+    var uppercaseOptionsSplit = uppercaseOptions.split(",");
+    chosenCharacters = chosenCharacters.concat(uppercaseOptionsSplit);
+  }
+  if (numberChoice) {
+    // add numbers to chosenCharacters, if chosen
+    var numberOptionsSplit = numberOptions.split(",");
+    chosenCharacters = chosenCharacters.concat(numberOptionsSplit);
+  }
+  if (specialChoice) {
+    // add special characters to chosenCharacters, if chosen
+    var specialOptionsSplit = specialOptions.split(",");
+    chosenCharacters = chosenCharacters.concat(specialOptionsSplit);
   }
 
+  // To check this is concatenating correctly
+  console.log(chosenCharacters);
 
-
-  // WHEN the password is generated
-  // THEN the password is either displayed in an alert or written to the page
-
-  var generateBtn = document.querySelector("#generate");
-
-  // Write password to the #password input
-  function writePassword() {
-    var password = generatePassword();
-    var passwordText = document.querySelector("#password");
-
-    passwordText.value = password;
+  // After the user answers all prompts to meet the parameters, then a password is generated that matches the selected criteria
+  // To generate the password of the required length, execute a loop until the length is reached
+  var password = [];
+  for (var i = 0; i < lengthChoice; i++) {
+    // password[i] = chosenCharacters[Math.floor(Math.random() * chosenCharacters.length)];
+    password[i] = chosenCharacters[Math.floor(Math.random() * chosenCharacters.length)];
   }
 
-  // Add event listener to generate button
-  generateBtn.addEventListener("click", writePassword);
+  password = password.join("");
+  console.log(password);
+
+  // var indexL;
+  // var indexU;
+  // var indexN;
+  // var indexS;
+
+  // Ensure that the password contains at least one of each of the characters chosen by the user
+  // if (lowercaseChoice) {
+  //   indexL = lowercaseOptions[Math.floor(Math.random() * lowercaseOptions.length)];
+  //   password.unshift(indexL);
+  //   password.pop();
+  // }
+  // if (uppercaseChoice) {
+  //   indexU = uppercaseOptions[Math.floor(Math.random() * uppercaseOptions.length)];
+  //   password.unshift(indexU);
+  //   password.pop();
+  // }
+  // if (numberChoice) {
+  //   indexN = numberOptions[Math.floor(Math.random() * numberOptions.length)];
+  //   password.unshift(indexN);
+  //   password.pop();
+  // }
+  // if (specialChoice) {
+  //   indexS = specialOptions[Math.floor(Math.random() * specialOptions.length)];
+  //   password.unshift(indexS);
+  //   password.pop();
+  // }
+
+  // password = password.join("");
+  // console.log(password);
+  return password;
 }
 
-// Call functions
-generatePassword();
-writePassword();
+// Once the password is generated, it is either displayed in an alert or written to the #password input
+function writePassword() {
+  askUser();
+  password = generatePassword();
+  var passwordText = document.querySelector("#password");
+  passwordText.value = password;
+}
+
+// Add event listener to generate button
+generateBtn.addEventListener("click", writePassword);
