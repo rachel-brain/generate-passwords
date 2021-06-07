@@ -1,3 +1,4 @@
+// Note that all console.log lines are to check the functionality of the code
 // Assignment code
 var generateBtn = document.querySelector("#generate");
 
@@ -29,11 +30,13 @@ function generatePassword() {
   // If user pressed No to all options, alert them of the error
   if (!lowercaseChoice && !uppercaseChoice && !numberChoice && !specialChoice) {
     window.alert("You must choose at least one type of character. Please start again.");
+    askUser();
   }
 
   // If user chose a password length not between 8 & 128, alert them of the error
   if (lengthChoice < 8 || lengthChoice > 128) {
     window.alert("Your password length must be between 8 & 128 characters. Please start again.");
+    askUser();
   }
 
   // Compile the full selection of chosen characters
@@ -60,48 +63,46 @@ function generatePassword() {
 
   // To check this is concatenating correctly
   console.log(chosenCharacters);
+  console.log(chosenCharacters.length);
 
-  // After the user answers all prompts to meet the parameters, then a password is generated that matches the selected criteria
-  // To generate the password of the required length, execute a loop until the length is reached
+  // After the user answers all prompts/confirm questions, then a password is generated matching the selected criteria
+  // To generate the password of the required length, a loop is executed until the length is reached
   var password = [];
   for (var i = 0; i < lengthChoice; i++) {
-    // password[i] = chosenCharacters[Math.floor(Math.random() * chosenCharacters.length)];
     password[i] = chosenCharacters[Math.floor(Math.random() * chosenCharacters.length)];
   }
 
   password = password.join("");
   console.log(password);
+  console.log(password.length);
 
-  // var indexL;
-  // var indexU;
-  // var indexN;
-  // var indexS;
+  // Because there is a large number of each of the lowercase, uppercase & special characters (>= 26 each), there is a 
+  // very high probability that at least one of each of these is used in the password generated, if specified. However, 
+  // as there are only 10 numerical characters, this parameter may be missed in a smaller length of password. Therefore, 
+  // it would be useful to ensure a random number is added to the password in all passwords requiring a number.
 
-  // Ensure that the password contains at least one of each of the characters chosen by the user
-  // if (lowercaseChoice) {
-  //   indexL = lowercaseOptions[Math.floor(Math.random() * lowercaseOptions.length)];
-  //   password.unshift(indexL);
-  //   password.pop();
-  // }
-  // if (uppercaseChoice) {
-  //   indexU = uppercaseOptions[Math.floor(Math.random() * uppercaseOptions.length)];
-  //   password.unshift(indexU);
-  //   password.pop();
-  // }
-  // if (numberChoice) {
-  //   indexN = numberOptions[Math.floor(Math.random() * numberOptions.length)];
-  //   password.unshift(indexN);
-  //   password.pop();
-  // }
-  // if (specialChoice) {
-  //   indexS = specialOptions[Math.floor(Math.random() * specialOptions.length)];
-  //   password.unshift(indexS);
-  //   password.pop();
-  // }
+  var randomNumber = "";
 
-  // password = password.join("");
-  // console.log(password);
-  return password;
+  function addNumber() {
+    if (numberChoice) {
+      randomNumber += numberOptions.charAt(Math.floor(Math.random() * numberOptions.length));
+    }
+    return randomNumber;
+  }
+
+  console.log(addNumber());
+
+  var newPassword = [randomNumber + password];
+
+  newPassword = newPassword.join("");
+  var editedNewPassword = newPassword;
+
+  if (numberChoice) {
+    editedNewPassword = newPassword.slice(0, -1);
+  }
+  console.log(editedNewPassword);
+  console.log(editedNewPassword.length);
+  return editedNewPassword;
 }
 
 // Once the password is generated, it is either displayed in an alert or written to the #password input
@@ -110,6 +111,13 @@ function writePassword() {
   password = generatePassword();
   var passwordText = document.querySelector("#password");
   passwordText.value = password;
+
+  function resetConcat() {
+    // Clears concatenated chosenCharacters to prevent repeat concatenation on multiple generations of password
+    chosenCharacters = "";
+  }
+
+  resetConcat();
 }
 
 // Add event listener to generate button
