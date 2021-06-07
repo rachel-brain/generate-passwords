@@ -32,11 +32,11 @@ The following image shows the web application's appearance & functionality:
 
 * The URL of the deployed application:
 
-  https://rachel-brain.github.io/generate-passwords/
+    https://rachel-brain.github.io/generate-passwords/
 
 * The URL of the GitHub repository:
 
-  https://github.com/rachel-brain/generate-passwords
+    https://github.com/rachel-brain/generate-passwords
 
 
 ## License

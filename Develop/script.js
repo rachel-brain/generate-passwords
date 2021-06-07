@@ -1,4 +1,3 @@
-// Note that all console.log lines are to check the functionality of the code
 // Assignment code
 var generateBtn = document.querySelector("#generate");
 
@@ -61,10 +60,6 @@ function generatePassword() {
     chosenCharacters = chosenCharacters.concat(specialOptionsSplit);
   }
 
-  // To check this is concatenating correctly
-  console.log(chosenCharacters);
-  console.log(chosenCharacters.length);
-
   // After the user answers all prompts/confirm questions, then a password is generated matching the selected criteria
   // To generate the password of the required length, a loop is executed until the length is reached
   var password = [];
@@ -73,8 +68,6 @@ function generatePassword() {
   }
 
   password = password.join("");
-  console.log(password);
-  console.log(password.length);
 
   // Because there is a large number of each of the lowercase, uppercase & special characters (>= 26 each), there is a 
   // very high probability that at least one of each of these is used in the password generated, if specified. However, 
@@ -100,8 +93,7 @@ function generatePassword() {
   if (numberChoice) {
     editedNewPassword = newPassword.slice(0, -1);
   }
-  console.log(editedNewPassword);
-  console.log(editedNewPassword.length);
+
   return editedNewPassword;
 }
 
